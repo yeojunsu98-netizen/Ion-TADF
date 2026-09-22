@@ -1,0 +1,49 @@
+name: Search all Ion-TADF papers
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 14 1 * *"
+
+permissions:
+  contents: write
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Search Ion-TADF literature
+        run: python ion_tadf_search.py
+
+      - name: Commit updated results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/
+          if git diff --cached --quiet; then
+            echo "No result changes."
+          else
+            git commit -m "Update Ion-TADF literature search"
+            git push
+          fi
+
+      - name: Upload CSV/Markdown artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ion-tadf-literature
+          path: |
+            results/ion_tadf_2020_present.csv
+            results/ion_tadf_2020_present.md
