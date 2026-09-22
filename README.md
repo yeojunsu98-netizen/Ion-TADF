@@ -1,18 +1,17 @@
-# Ion-TADF literature search
+# Ion-TADF
 
-GitHub Actions로 **2020년 이후 ionic / charged TADF 관련 논문**을 과거까지 검색하는 저장소입니다.
+Historical literature search for **ionic thermally activated delayed fluorescence (Ion-TADF)** from **2020 to present**.
 
-검색 소스:
-- OpenAlex
-- Crossref
-- Semantic Scholar
-- arXiv
+## Run
 
-결과:
+1. Open the **Actions** tab.
+2. Click **Search all Ion-TADF papers**.
+3. Click **Run workflow** → **Run workflow**.
+4. When it finishes, open the workflow run.
+5. Results are committed into the `results/` folder and are also available as the `ion-tadf-literature` artifact.
+
+Files:
 - `results/ion_tadf_2020_present.csv`
 - `results/ion_tadf_2020_present.md`
 
-## 실행
-GitHub에서 **Actions → Historical Ion-TADF search → Run workflow** 를 누르면 됩니다.
-
-검색 결과는 DOI / arXiv ID / 제목으로 중복 제거한 뒤, TADF와 ionic/charged/counterion/LEC 관련성이 함께 있는 논문만 남깁니다.
+The workflow also runs automatically on the first day of every month.
